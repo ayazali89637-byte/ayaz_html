@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Website</title>
+  
+  <style>
+    /* CSS Variables for Light & Dark Mode */
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --nav-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --nav-bg: #1e293b;
+      --border-color: #334155;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background-color: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Dark Mode Toggle Button */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    /* Cards Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+    }
+
+    /* Counter Section */
+    .counter-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      max-width: 400px;
+      margin: 0 auto 4rem auto;
+    }
+
+    .counter-display {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: var(--primary);
+    }
+
+    .counter-btn {
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 0.25rem;
+    }
+
+    .btn-add { background-color: #22c55e; color: white; }
+    .btn-sub { background-color: #ef4444; color: white; }
+    .btn-reset { background-color: var(--text-muted); color: white; }
+
+    /* Responsive Queries */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">MyWebsite</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#counter">Counter</a></li>
+      <li>
+        <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <h1>Modern & Responsive Layout</h1>
+    <p>HTML5, CSS3 CSS Variables ke sath aur vanilla JavaScript ka complete implementation.</p>
+    <button class="btn-primary">Explore More</button>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    
+    <!-- 3 Cards Grid -->
+    <h2 class="section-title" id="services">Our Services</h2>
+    <section class="grid">
+      <article class="card">
+        <h3>Web Design</h3>
+        <p>Responsive aur clean UI layouts modern CSS grid aur flexbox techniques ke sath.</p>
+      </article>
+      <article class="card">
+        <h3>Development</h3>
+        <p>Fast aur interactive web apps single-file vanilla JavaScript scripts ke sath.</p>
+      </article>
+      <article class="card">
+        <h3>Performance</h3>
+        <p>Lightweight code layout jo fast load hota hai aur har device pe smooth chalta hai.</p>
+      </article>
+    </section>
+
+    <!-- Working Counter Section -->
+    <section class="counter-section" id="counter">
+      <h2>Interactive Counter</h2>
+      <div class="counter-display" id="counterValue">0</div>
+      <div>
+        <button class="counter-btn btn-sub" id="decrementBtn">-</button>
+        <button class="counter-btn btn-reset" id="resetBtn">Reset</button>
+        <button class="counter-btn btn-add" id="incrementBtn">+</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // 1. Dark Mode Toggle Script
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        themeToggleBtn.textContent = '🌙 Dark';
+      } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggleBtn.textContent = '☀️ Light';
+      }
+    });
+
+    // 2. Working Counter Script
+    let count = 0;
+    const counterDisplay = document.getElementById('counterValue');
+    const incrementBtn = document.getElementById('incrementBtn');
+    const decrementBtn = document.getElementById('decrementBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function updateCounterDisplay() {
+      counterDisplay.textContent = count;
+    }
+
+    incrementBtn.addEventListener('click', () => {
+      count++;
+      updateCounterDisplay();
+    });
+
+    decrementBtn.addEventListener('click', () => {
+      count--;
+      updateCounterDisplay();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      count = 0;
+      updateCounterDisplay();
+    });
+  </script>
+
+</body>
+</html>
